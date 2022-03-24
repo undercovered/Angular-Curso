@@ -1,26 +1,34 @@
 <h4>Formularios <small> Reactivo </small></h4>
 <hr>
-<form autocomplete="off">
+<form autocomplete="off" [formGroup]="forma" (ngSubmit)="guardar()">
 
   <div>
 
     <div class="form-group row">
       <label class="col-2 col-form-label">Nombre</label>
-      <div class="col-8">
+      <div class="col">
 
         <input class="form-control"
                type="text"
-               placeholder="Nombre">
+               placeholder="Nombre"
+               formControlName="nombre"
+               [class.is-invalid]="camposNoValidos.nombre"
+               >
+        <small *ngIf="camposNoValidos.nombre" class="text-danger">Ingrese minimo 5 letras</small>
       </div>
     </div>
 
     <div class="form-group row">
       <label class="col-2 col-form-label">Apellido</label>
-      <div class="col-8">
+      <div class="col">
 
         <input class="form-control"
                type="text"
-               placeholder="Apellido">
+               placeholder="Apellido"
+               formControlName="apellido"
+               [class.is-invalid]="camposNoValidos.apellido"
+               >
+        <small *ngIf="camposNoValidos.apellido" class="text-danger">Ingrese minimo 5 letras</small>
       </div>
     </div>
 
@@ -28,14 +36,36 @@
 
   <div class="form-group row">
     <label class="col-2 col-form-label">Correo</label>
-    <div class="col-8">
+    <div class="col">
 
       <input class="form-control"
              type="email"
-             placeholder="Correo electrónico">
+             placeholder="Correo electrónico"
+             formControlName="correo"
+             [class.is-invalid]="camposNoValidos.nombre"
+              >
+      <small *ngIf="camposNoValidos.correo" class="text-danger">Ingrese un correo valido</small>
     </div>
   </div>
-
+  <div class="form-group row" formGroupName="direccion">
+    <label class="col-2 col-form-label">Dirección</label>
+    <div class="form-row col">
+      <div class="col  m-1">
+        <input type="text"
+                class="form-control"
+                placeholder="Distrito"
+                formControlName="distrito"
+                [class.is-invalid]="camposNoValidos.distrito">
+      </div>
+      <div class="col m-1">
+        <input type="text"
+                class="form-control"
+                placeholder="Ciudad"
+                formControlName="ciudad"
+                [class.is-invalid]="camposNoValidos.ciudad">
+      </div>
+    </div>
+  </div>
 
 
   <div class="form-group row">
@@ -48,3 +78,12 @@
   </div>
 
 </form>
+<hr>
+<pre>
+  Estado del formulario: {{forma.valid}}
+  <br>
+  Status: {{forma.status}}
+</pre>
+<pre>
+  {{forma.value | json}}
+</pre>
